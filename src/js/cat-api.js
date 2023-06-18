@@ -1,16 +1,17 @@
 const API_KEY = 'live_4SvD6A1xT7ikQn4pDzx2DdEt0yYKvUvfK1jjb7HWTeaWbRpNOKC7QhdcTqXwkkAp';
+const breedSelectEl = document.querySelector('.breed-select');
+const catInfoEl = document.querySelector('.cat-info');
+const loaderEl = document.querySelector('.loader');
+const breedNameEl = document.querySelector('.breed-name');
+const descriptionEl = document.querySelector('.description');
+const temperamentEl = document.querySelector('.temperament');
+const imageEl = catInfoEl.querySelector('img');
+
 
 function fetchBreeds() {
-    const BASS_URL = 'https://api.thecatapi.com/v1/breeds';
+    const BASS_URL = `https://api.thecatapi.com/v1/breeds?api_key=${API_KEY}`;
     
-  
-    const options = {
-      headers: {
-        'x-api-key': API_KEY,
-      },
-    };
-  
-    return fetch(BASS_URL, options)
+    return fetch(BASS_URL)
       .then((resp) => {
         if (!resp.ok) {
           throw new Error(resp.statusText);
@@ -30,15 +31,9 @@ function fetchBreeds() {
   }
   
   function fetchCatByBreed(breedId) {
-    const URL = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
+    const URL = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}&api_key=${API_KEY}`;
   
-    const options = {
-      headers: {
-        'x-api-key': API_KEY,
-      },
-    };
-  
-    return fetch(URL, options)
+    return fetch(URL)
       .then((response) => {
         if (!response.ok) {
           throw new Error(response.statusText);
@@ -47,51 +42,45 @@ function fetchBreeds() {
         return response.json();
       })
       .then((data) => data[0])
+      
       .catch((error) => {
         console.error('Error fetching cat:', error);
       });
   }
 
-
-const breedSelectElement = document.querySelector('.breed-select');
-const catInfoElement = document.querySelector('.cat-info');
-const loaderElement = document.querySelector('.loader');
-const breedNameElement = document.querySelector('.breed-name');
-const descriptionElement = document.querySelector('.description');
-const temperamentElement = document.querySelector('.temperament');
-const imageElement = catInfoElement.querySelector('img');
-
-loaderElement.style.display = 'block';
-breedSelectElement.disabled = true;
+// loaderEl.style.display = 'block';
+// breedSelectEl.disabled = true;
 
 fetchBreeds()
   .then((breeds) => {
-    loaderElement.style.display = 'none';
-    breedSelectElement.disabled = false;
+    // loaderEl.style.display = 'none';
+    // breedSelectEl.disabled = false;
 
     breeds.forEach((breed) => {
-      const optionElement = document.createElement('option');
-      optionElement.value = breed.id;
-      optionElement.textContent = breed.name;
-      breedSelectElement.appendChild(optionElement);
+      const optionEl = document.createElement('option');
+      optionEl.value = breed.id;
+      optionEl.textContent = breed.name;
+      breedSelectEl.appendChild(optionEl);
     });
   });
 
-breedSelectElement.addEventListener('change', () => {
-  loaderElement.style.display = 'block';
-  catInfoElement.style.display = 'none';
+breedSelectEl.addEventListener('change', () => {
+  // loaderEl.style.display = 'block';
+  // catInfoEl.style.display = 'none';
 
-  const breedId = breedSelectElement.value;
+  const breedId = breedSelectEl.value;
 
   fetchCatByBreed(breedId)
     .then((cat) => {
-      loaderElement.style.display = 'none';
-      catInfoElement.style.display = 'block';
+      
+      // loaderEl.style.display = 'none';
+      // catInfoEl.style.display = 'block';
 
-      breedNameElement.textContent = cat.breeds[0].name;
-      descriptionElement.textContent = cat.breeds[0].description;
-      temperamentElement.textContent = cat.breeds[0].temperament;
-      imageElement.src = cat.url;
-      imageElement.alt = cat.breeds[0].name;
+      breedNameEl.textContent = cat.breeds[0].name;
+      
+      descriptionEl.textContent = cat.breeds[0].description;
+      temperamentEl.textContent = cat.breeds[0].temperament;
+      imageEl.src = cat.url;
+      imageEl.alt = cat.breeds[0].name;
     });
 });

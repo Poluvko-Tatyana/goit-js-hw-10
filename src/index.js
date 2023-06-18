@@ -8,3 +8,6 @@ const imgInfo = `<img src="" alt="" />
 <p class="temperament"></p>`;
 
 div.insertAdjacentHTML("afterbegin", imgInfo);
+
+const loader = `<p class="loader">Loading...</p>`;
+div.insertAdjacentHTML("afterend", loader);
