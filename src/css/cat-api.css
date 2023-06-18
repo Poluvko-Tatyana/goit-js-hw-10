@@ -1,7 +1,10 @@
-/* .loader {
+.loader {
     display: none;
   }
   
   .cat-info {
     display: none;
-  } */
+  }
+  .error{
+    display: none;
+  }

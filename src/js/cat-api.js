@@ -1,11 +1,19 @@
+import Notiflix from 'notiflix';
+import SlimSelect from 'slim-select'
+
 const API_KEY = 'live_4SvD6A1xT7ikQn4pDzx2DdEt0yYKvUvfK1jjb7HWTeaWbRpNOKC7QhdcTqXwkkAp';
 const breedSelectEl = document.querySelector('.breed-select');
 const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
+const errorEl = document.querySelector('.error');
 const breedNameEl = document.querySelector('.breed-name');
 const descriptionEl = document.querySelector('.description');
 const temperamentEl = document.querySelector('.temperament');
 const imageEl = catInfoEl.querySelector('img');
+
+// new SlimSelect({
+//   select: '.breed-select'
+// })
 
 
 function fetchBreeds() {
@@ -26,7 +34,7 @@ function fetchBreeds() {
         }))
       )
       .catch((error) => {
-        console.error('Error fetching breeds:', error);
+        Notiflix.Notify.failure('Error fetching breeds:', error);
       });
   }
   
@@ -44,17 +52,17 @@ function fetchBreeds() {
       .then((data) => data[0])
       
       .catch((error) => {
-        console.error('Error fetching cat:', error);
+        Notiflix.Notify.failure('Error fetching cat:', error);
       });
   }
 
-// loaderEl.style.display = 'block';
-// breedSelectEl.disabled = true;
+loaderEl.style.display = 'block';
+breedSelectEl.disabled = true;
 
 fetchBreeds()
   .then((breeds) => {
-    // loaderEl.style.display = 'none';
-    // breedSelectEl.disabled = false;
+    loaderEl.style.display = 'none';
+    breedSelectEl.disabled = false;
 
     breeds.forEach((breed) => {
       const optionEl = document.createElement('option');
@@ -65,16 +73,18 @@ fetchBreeds()
   });
 
 breedSelectEl.addEventListener('change', () => {
-  // loaderEl.style.display = 'block';
-  // catInfoEl.style.display = 'none';
+  loaderEl.style.display = 'block';
+  catInfoEl.style.display = 'none';
+  errorEl.style.display = 'block';
 
   const breedId = breedSelectEl.value;
 
   fetchCatByBreed(breedId)
     .then((cat) => {
       
-      // loaderEl.style.display = 'none';
-      // catInfoEl.style.display = 'block';
+      loaderEl.style.display = 'none';
+      catInfoEl.style.display = 'block';
+      errorEl.style.display = 'none';
 
       breedNameEl.textContent = cat.breeds[0].name;
       
