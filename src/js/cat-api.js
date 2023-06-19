@@ -64,12 +64,12 @@ function fetchBreeds() {
     };
   
     return fetch(URL, options)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(response.statusText);
+      .then((resp) => {
+        if (!resp.ok) {
+          throw new Error(resp.statusText);
         }
   
-        return response.json();
+        return resp.json();
       })
       
   }
@@ -82,7 +82,6 @@ function fetchBreeds() {
 
   function createMarkup(arr){
     return arr.map(({name, description, temperament, url}) =>
-    console.log(data[0])
     `<img src="${url}" alt="${name}" />
     <h2>${name}</h2>
     <p>${description}</p>
