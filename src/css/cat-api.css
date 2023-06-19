@@ -8,3 +8,10 @@
   .error{
     display: none;
   }
+  .Loading{
+    display: none;
+  }
+
+  .Load{
+    display: block;
+  }
