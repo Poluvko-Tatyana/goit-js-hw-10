@@ -12,9 +12,9 @@ const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
 const errorEl = document.querySelector('.error');
 
-loaderEl.style.display = 'block';
+loaderEl.style.display = 'none';
 catInfoEl.style.display = 'none';
-errorEl.style.display = 'block';
+errorEl.style.display = 'none';
 breedSelectEl.disabled = true;
 
 // new SlimSelect({
@@ -29,7 +29,7 @@ breedSelectEl.disabled = true;
   }))
 )
 .then((breeds) => {
-  loaderEl.style.display = 'none';
+  
   breedSelectEl.disabled = false;
 
   breeds.forEach((breed) => {
@@ -40,33 +40,32 @@ breedSelectEl.disabled = true;
   });
 })
 .catch((error) => {
-  Notiflix.Notify.failure('Error fetching breeds:', error);
-});
+  Notiflix.Notify.failure('Error fetching breeds:', error);})
+  // .finally { loaderEl.style.display = 'none';};
 
 
 breedSelectEl.addEventListener('change', (event) => {
 
   let breedId = event.target.value;
-  console.log(breedId)
 
   fetchCatByBreed(breedId)
   .then((data) => 
   catInfoEl.innerHTML = createMarkup(data[0]))
   .catch((error) => {
     Notiflix.Notify.failure('Error fetching cat:', error)});
-    const Loading = `<p class = "Loading">Loading...</p>`;
-    catInfoEl.insertAdjacentHTML("afterend", Loading);
+    
 
   function createMarkup(arr){
     return arr.map(({name, description, temperament, url}) =>
     `<img src="${url}" alt="${name}" />
     <h2>${name}</h2>
     <p>${description}</p>
-    <p>${temperament}</p>`); 
+    <p>${temperament}</p>`).join(""); 
   }
 
       loaderEl.style.display = 'none';
       catInfoEl.style.display = 'block';
-      errorEl.style.display = 'none';
-      
       })
+
+
+        // loaderEl.style.display = 'block';
