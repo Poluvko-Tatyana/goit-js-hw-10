@@ -83,6 +83,8 @@ function fetchBreeds() {
   catInfoEl.innerHTML = createMarkup(data[0]))
   .catch((error) => {
     Notiflix.Notify.failure('Error fetching cat:', error)});
+    const Loading = `<p class = Loading>Loading...</p>`;
+    catInfoEl.insertAdjacentHTML("afterend", Loading);
 
   function createMarkup(arr){
     return arr.map(({name, description, temperament, url}) =>
@@ -106,8 +108,7 @@ fetchBreeds()
     });
   });
 
-  const Loading = `<p class = Loading>Loading...</p>`;
-  catInfoEl.insertAdjacentHTML("afterend", Loading);
+ 
 
 breedSelectEl.addEventListener('change', () => {
       loaderEl.style.display = 'none';
