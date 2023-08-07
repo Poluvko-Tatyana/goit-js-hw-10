@@ -12,38 +12,49 @@ const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
 const errorEl = document.querySelector('.error');
 
-const breedId = breedSelectEl.value;
-console.log(breedId)
-
 loaderEl.style.display = 'block';
 catInfoEl.style.display = 'none';
 errorEl.style.display = 'block';
 breedSelectEl.disabled = true;
 
-
-
 // new SlimSelect({
 //   select: '.breed-select'
 // })
 
-
-  fetchBreeds().then((data) =>
+  fetchBreeds()
+  .then((data) =>
   data.map((breed) => ({
     id: breed.id,
     name: breed.name,
   }))
 )
+.then((breeds) => {
+  loaderEl.style.display = 'none';
+  breedSelectEl.disabled = false;
+
+  breeds.forEach((breed) => {
+    const optionEl = document.createElement('option');
+    optionEl.value = breed.id;
+    optionEl.textContent = breed.name;
+    breedSelectEl.appendChild(optionEl);
+  });
+})
 .catch((error) => {
   Notiflix.Notify.failure('Error fetching breeds:', error);
 });
 
+
+breedSelectEl.addEventListener('change', (event) => {
+
+  let breedId = event.target.value;
+  console.log(breedId)
 
   fetchCatByBreed(breedId)
   .then((data) => 
   catInfoEl.innerHTML = createMarkup(data[0]))
   .catch((error) => {
     Notiflix.Notify.failure('Error fetching cat:', error)});
-    const Loading = `<p class = Loading>Loading...</p>`;
+    const Loading = `<p class = "Loading">Loading...</p>`;
     catInfoEl.insertAdjacentHTML("afterend", Loading);
 
   function createMarkup(arr){
@@ -53,24 +64,7 @@ breedSelectEl.disabled = true;
     <p>${description}</p>
     <p>${temperament}</p>`); 
   }
-  
 
-fetchBreeds()
-  .then((breeds) => {
-    loaderEl.style.display = 'none';
-    breedSelectEl.disabled = false;
-
-    breeds.forEach((breed) => {
-      const optionEl = document.createElement('option');
-      optionEl.value = breed.id;
-      optionEl.textContent = breed.name;
-      breedSelectEl.appendChild(optionEl);
-    });
-  });
-
- 
-
-breedSelectEl.addEventListener('change', () => {
       loaderEl.style.display = 'none';
       catInfoEl.style.display = 'block';
       errorEl.style.display = 'none';
