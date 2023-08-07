@@ -27,25 +27,6 @@ breedSelectEl.disabled = true;
 // })
 
 
-// function fetchBreeds() {
-//     const BASS_URL = `https://api.thecatapi.com/v1/breeds`;
-
-//     const options = {
-//       headers: {
-//         'x-api-key': API_KEY,
-//       },
-//     };
-    
-//     return fetch(BASS_URL, options)
-//       .then((resp) => {
-//         if (!resp.ok) {
-//           throw new Error(resp.statusText);
-//         }
-  
-//         return resp.json();
-//       })  
-//   }
-
   fetchBreeds().then((data) =>
   data.map((breed) => ({
     id: breed.id,
@@ -57,27 +38,6 @@ breedSelectEl.disabled = true;
 });
 
 
-
-  // function fetchCatByBreed(breedId) {
-  //   const URL = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
-
-  //   const options = {
-  //     headers: {
-  //       'x-api-key': API_KEY,
-  //     },
-  //   };
-  
-  //   return fetch(URL, options)
-  //     .then((resp) => {
-  //       if (!resp.ok) {
-  //         throw new Error(resp.statusText);
-  //       }
-  
-  //       return resp.json();
-  //     })
-      
-  // }
-  
   fetchCatByBreed(breedId)
   .then((data) => 
   catInfoEl.innerHTML = createMarkup(data[0]))
