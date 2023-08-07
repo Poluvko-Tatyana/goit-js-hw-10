@@ -27,24 +27,24 @@ breedSelectEl.disabled = true;
 // })
 
 
-function fetchBreeds() {
-    const BASS_URL = `https://api.thecatapi.com/v1/breeds`;
+// function fetchBreeds() {
+//     const BASS_URL = `https://api.thecatapi.com/v1/breeds`;
 
-    const options = {
-      headers: {
-        'x-api-key': API_KEY,
-      },
-    };
+//     const options = {
+//       headers: {
+//         'x-api-key': API_KEY,
+//       },
+//     };
     
-    return fetch(BASS_URL, options)
-      .then((resp) => {
-        if (!resp.ok) {
-          throw new Error(resp.statusText);
-        }
+//     return fetch(BASS_URL, options)
+//       .then((resp) => {
+//         if (!resp.ok) {
+//           throw new Error(resp.statusText);
+//         }
   
-        return resp.json();
-      })  
-  }
+//         return resp.json();
+//       })  
+//   }
 
   fetchBreeds().then((data) =>
   data.map((breed) => ({
@@ -58,25 +58,25 @@ function fetchBreeds() {
 
 
 
-  function fetchCatByBreed(breedId) {
-    const URL = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
+  // function fetchCatByBreed(breedId) {
+  //   const URL = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedId}`;
 
-    const options = {
-      headers: {
-        'x-api-key': API_KEY,
-      },
-    };
+  //   const options = {
+  //     headers: {
+  //       'x-api-key': API_KEY,
+  //     },
+  //   };
   
-    return fetch(URL, options)
-      .then((resp) => {
-        if (!resp.ok) {
-          throw new Error(resp.statusText);
-        }
+  //   return fetch(URL, options)
+  //     .then((resp) => {
+  //       if (!resp.ok) {
+  //         throw new Error(resp.statusText);
+  //       }
   
-        return resp.json();
-      })
+  //       return resp.json();
+  //     })
       
-  }
+  // }
   
   fetchCatByBreed(breedId)
   .then((data) => 
