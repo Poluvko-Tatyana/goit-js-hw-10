@@ -1,14 +1,13 @@
 .loader {
     display: none;
-  }
-  
-  .cat-info {
+  } 
+.cat-info {
     display: none;
   }
-  .error{
+.error{
     display: none;
   }
-  .Loading{
+.Loading{
     display: block;
   }
   

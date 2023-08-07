@@ -108,8 +108,6 @@ fetchBreeds()
     });
   });
 
- 
-
 breedSelectEl.addEventListener('change', () => {
       loaderEl.style.display = 'none';
       catInfoEl.style.display = 'block';
