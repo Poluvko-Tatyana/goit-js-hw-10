@@ -60,12 +60,12 @@ breedSelectEl.addEventListener('change', (event) => {
   
    
     function createMarkup(data){
-      const markup = el => {
-        return `<img class="cat-img" src="${el.url}" alt="${el.breeds[0].name}" >
+      const markup = breed => {
+        return `<img class="cat-img" src="${breed.url}" alt="${breed.breeds[0].name}" >
      <div class="cat-text">
-     <h1 class="cat-header">${el.breeds[0].name}</h1>
-     <p>${el.breeds[0].description}</p>
-     <p><span><b>Temperament: </b></span>${el.breeds[0].temperament}</p>
+     <h1 class="cat-header">${breed.breeds[0].name}</h1>
+     <p>${breed.breeds[0].description}</p>
+     <p><span><b>Temperament: </b></span>${breed.breeds[0].temperament}</p>
      </div>`;
       };
     
@@ -80,14 +80,5 @@ breedSelectEl.addEventListener('change', (event) => {
       loaderEl.style.display = 'block';
     }
   }
-  
-
-
-  // function hideCatInfo() {
-  //   if (!catInfoEl.classList.contains('hidden')) {
-  //     catInfoEl.classList.add('hidden');
-  //   }
-  //   loaderRef.classList.remove('hidden');
-  // }
   
  
