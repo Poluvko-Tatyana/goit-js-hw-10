@@ -49,23 +49,27 @@ breedSelectEl.addEventListener('change', (event) => {
   let breedId = event.target.value;
 
   fetchCatByBreed(breedId)
-  .then((data) => 
-  catInfoEl.innerHTML = createMarkup(data[0]))
+  .then(createMarkup)
+  // ((data) => 
+  // catInfoEl.innerHTML = createMarkup(data[0]))
   .catch((error) => {
+    errorEl.style.display = 'block';
     Notiflix.Notify.failure('Error fetching cat:', error)});
+   
+    function createMarkup(data){
+      const markup = el => {
+        return ` 
+     <img class="cat-img" src="${el.url}" alt="${el.breeds[0].name}" >
+     <div class="cat-text">
+     <h1 class="cat-header">${el.breeds[0].name}</h1>
+     <p>${el.breeds[0].description}</p>
+     <p><span><b>Temperament: </b></span>${el.breeds[0].temperament}</p>
+     </div>`;
+      };
     
-
-  function createMarkup(arr){
-    return arr.map(({name, description, temperament, url}) =>
-    `<img src="${url}" alt="${name}" />
-    <h2>${name}</h2>
-    <p>${description}</p>
-    <p>${temperament}</p>`).join(""); 
-  }
-
+      catInfoEl.innerHTML = markup(data[0]);
       loaderEl.style.display = 'none';
       catInfoEl.style.display = 'block';
-      })
+    }
 
-
-        // loaderEl.style.display = 'block';
+    // j
