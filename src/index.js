@@ -2,8 +2,8 @@
 import { fetchBreeds, fetchCatByBreed } from "./js/cat-api";
 import './css/cat-api.css';
 import Notiflix from 'notiflix';
-
-// import SlimSelect from 'slim-select'
+import SlimSelect from 'slim-select';
+import 'slim-select/dist/slimselect.css';
 
 const API_KEY = 'live_4SvD6A1xT7ikQn4pDzx2DdEt0yYKvUvfK1jjb7HWTeaWbRpNOKC7QhdcTqXwkkAp';
 
@@ -17,9 +17,6 @@ catInfoEl.style.display = 'none';
 errorEl.style.display = 'none';
 breedSelectEl.disabled = true;
 
-// new SlimSelect({
-//   select: '.breed-select'
-// })
 
   fetchBreeds()
   .then((data) =>
@@ -38,28 +35,33 @@ breedSelectEl.disabled = true;
     optionEl.textContent = breed.name;
     breedSelectEl.appendChild(optionEl);
   });
+  
 })
 .catch((error) => {
-  Notiflix.Notify.failure('Error fetching breeds:', error);})
-  // .finally { loaderEl.style.display = 'none';};
+  Notiflix.Notify.failure('Error fetching breeds:', error);
+  loaderEl.style.display = 'none';
+})
 
 
 breedSelectEl.addEventListener('change', (event) => {
 
+  if(catInfoEl.style.display = 'none'){
+    loaderEl.style.display = 'block';
+  }
   let breedId = event.target.value;
 
   fetchCatByBreed(breedId)
   .then(createMarkup)
-  // ((data) => 
-  // catInfoEl.innerHTML = createMarkup(data[0]))
   .catch((error) => {
     errorEl.style.display = 'block';
+    loaderEl.style.display = 'none';
     Notiflix.Notify.failure('Error fetching cat:', error)});
+  });
+  
    
     function createMarkup(data){
       const markup = el => {
-        return ` 
-     <img class="cat-img" src="${el.url}" alt="${el.breeds[0].name}" >
+        return `<img class="cat-img" src="${el.url}" alt="${el.breeds[0].name}" >
      <div class="cat-text">
      <h1 class="cat-header">${el.breeds[0].name}</h1>
      <p>${el.breeds[0].description}</p>
@@ -70,6 +72,22 @@ breedSelectEl.addEventListener('change', (event) => {
       catInfoEl.innerHTML = markup(data[0]);
       loaderEl.style.display = 'none';
       catInfoEl.style.display = 'block';
-    }
+      
+  };
 
-    // j
+  function hideCatInfo() {
+    if(catInfoEl.style.display = 'none'){
+      loaderEl.style.display = 'block';
+    }
+  }
+  
+
+
+  // function hideCatInfo() {
+  //   if (!catInfoEl.classList.contains('hidden')) {
+  //     catInfoEl.classList.add('hidden');
+  //   }
+  //   loaderRef.classList.remove('hidden');
+  // }
+  
+ 
