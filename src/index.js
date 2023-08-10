@@ -5,6 +5,7 @@ import Notiflix from 'notiflix';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 
+
 const API_KEY = 'live_4SvD6A1xT7ikQn4pDzx2DdEt0yYKvUvfK1jjb7HWTeaWbRpNOKC7QhdcTqXwkkAp';
 
 const breedSelectEl = document.querySelector('.breed-select');
@@ -35,6 +36,9 @@ breedSelectEl.disabled = true;
     optionEl.textContent = breed.name;
     breedSelectEl.appendChild(optionEl);
   });
+  new SlimSelect({
+    select: breedSelectEl,
+  })
   
 })
 .catch((error) => {
