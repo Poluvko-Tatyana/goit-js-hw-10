@@ -1,5 +1,9 @@
+.breed-select{
+  max-width: 300px;
+}
 .cat-img{
   max-width: 300px;
+  margin-top: 20px;
 }
 .cat-text{
   position: absolute;
