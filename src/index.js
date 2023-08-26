@@ -6,8 +6,6 @@ import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 
 
-const API_KEY = 'live_4SvD6A1xT7ikQn4pDzx2DdEt0yYKvUvfK1jjb7HWTeaWbRpNOKC7QhdcTqXwkkAp';
-
 const breedSelectEl = document.querySelector('.breed-select');
 const catInfoEl = document.querySelector('.cat-info');
 const loaderEl = document.querySelector('.loader');
@@ -43,8 +41,9 @@ breedSelectEl.disabled = true;
 })
 .catch((error) => {
   Notiflix.Notify.failure('Error fetching breeds:', error);
-  loaderEl.style.display = 'none';
+  
 })
+// .finally(() => loaderEl.style.display = 'none')
 
 
 breedSelectEl.addEventListener('change', (event) => {
